@@ -1,14 +1,22 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../ProviderOthobaContext/AuthProvider";
+
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
 
     const handleRegister = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-
         console.log(email, password, name);
+
+        //create user(sign up/registration) in firebase
+        createUser(email, password)
+            .then(result => console.log(result.user))
+            .catch(error => console.error(error))
     }
 
     return (

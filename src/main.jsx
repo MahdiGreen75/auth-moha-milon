@@ -9,11 +9,12 @@ import './index.css'
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
+import AuthProvider from './ProviderOthobaContext/AuthProvider';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
+    element: <Root />,
     children: [
       {
         path: "/",
@@ -26,13 +27,15 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>
-      }
+      } 
     ]
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 )
