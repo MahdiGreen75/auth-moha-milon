@@ -1,8 +1,10 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../ProviderOthobaContext/AuthProvider";
 
+
 const Login = () => {
+    const navigate = useNavigate();
     const {signInUser} = useContext(AuthContext);
 
     const handleLogin = (e) => {
@@ -13,7 +15,11 @@ const Login = () => {
         console.log(email, password);
         //login with firebase
         signInUser(email, password)
-            .then(result=>console.log(result.user))
+            .then(result=>{
+                console.log(result.user)
+                e.target.reset();
+                navigate("/");
+            })
             .catch(err=>console.error(err))
     }
 
@@ -46,7 +52,7 @@ const Login = () => {
                                 <button type="submit" className="btn btn-primary">Login</button>
                             </div>
                         </form>
-                        <p>New here. Please <Link to="/register"><a className="text-blue-600">Register</a></Link></p>
+                        <p>New here. Please <Link to="/register"><button className="text-blue-600">Register</button></Link></p>
                     </div>
                 </div>
             </div>
